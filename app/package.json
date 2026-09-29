@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "App template for Azure CI/CD and App Insights",
   "main": "index.js",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "start": "node index.js"
   },

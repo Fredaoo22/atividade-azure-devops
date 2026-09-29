@@ -1,4 +1,3 @@
-const express = require('express');
 const appInsights = require('applicationinsights');
 
 // Configuração do Application Insights
@@ -17,6 +16,7 @@ if (process.env.APPLICATIONINSIGHTS_CONNECTION_STRING) {
     console.log("App Insights connection string não encontrada.");
 }
 
+const express = require('express');
 const sql = require('mssql');
 const app = express();
 const port = process.env.PORT || 8080;
@@ -113,7 +113,11 @@ app.get('/tema', async (req, res) => {
     try {
         // ALUNOS: Usem a configuração dbConfig para conectar no banco e fazer o SELECT na tabela do tema escolhido!
         await sql.connect(dbConfig);
-        const result = await sql.query`SELECT * FROM NomeDaSuaTabela`; // ALTERAR AQUI!
+        const result = await sql.query`
+            SELECT Id, Titulo, Autor, AnoPublicacao
+            FROM dbo.Livros
+            ORDER BY Id
+        `;
         
         res.json(result.recordset);
     } catch (err) {
