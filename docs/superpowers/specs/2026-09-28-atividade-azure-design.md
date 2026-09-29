@@ -27,19 +27,21 @@ Azure CLI -- provisiona --> Resource Group da atividade
 
 ## Recursos
 
-Todos os recursos novos ficarão em `rg-biblioteca-260928`, na região `brazilsouth`. O Resource Group antigo `rg-avocato-toast-cp4` não será alterado.
+Todos os recursos novos ficam em `rg-biblioteca-260928`. O App Service Plan Windows F1 e o Web App ficam em `chilecentral`; Azure SQL, Application Insights e Log Analytics permanecem em `brazilsouth`, assim como a localização administrativa do Resource Group. O Resource Group antigo `rg-avocato-toast-cp4` não será alterado.
 
 | Recurso | Nome |
 | --- | --- |
 | Resource Group | `rg-biblioteca-260928` |
 | Azure SQL Server | `sql-biblioteca-89733` |
 | Azure SQL Database | `db-biblioteca` |
-| App Service Plan F1 Windows | `plan-biblioteca-260928` |
+| App Service Plan F1 Windows (Chile Central) | `plan-biblioteca-260928` |
 | Azure Web App | `web-biblioteca-89733` |
 | Application Insights | `appi-biblioteca-260928` |
 | Log Analytics Workspace | `law-biblioteca-260928` |
 
 Os nomes globais do SQL Server e do Web App serão validados durante a criação. Caso algum já exista, somente o sufixo numérico será alterado.
+
+As tentativas iniciais de App Service em Brazil South falharam por cota. Por orientação do professor, a política “Locais permitidos” passou a incluir `chilecentral`. O plano Windows F1 `plan-biblioteca-260928` foi criado com sucesso nessa região, mantendo o SKU gratuito prescrito no enunciado. O Web App `web-biblioteca-89733` usa esse plano. Os caminhos D1 e Container Apps foram abandonados; a solução final usa Azure Web App.
 
 ## Banco de dados
 

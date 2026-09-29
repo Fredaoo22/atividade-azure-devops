@@ -4,18 +4,18 @@
 
 **Goal:** Publicar a aplicação Node.js do fork no Azure Web App, consultar cinco livros no Azure SQL, comprovar CI/CD e monitoramento e gerar o PDF de entrega.
 
-**Architecture:** Um Resource Group exclusivo contém Azure SQL, App Service Plan Windows F1, Web App Node.js 22 e Application Insights. Um push na `main` do fork dispara GitHub Actions, que usa publish profile para implantar a pasta `app`; o Web App consulta `dbo.Livros` e envia telemetria ao Application Insights.
+**Architecture:** Um Resource Group exclusivo contém Azure SQL e Application Insights em `brazilsouth`, App Service Plan Windows F1 e Web App Node.js 22 em `chilecentral`. Um push na `main` do fork dispara GitHub Actions, que usa publish profile para implantar a pasta `app`; o Web App consulta `dbo.Livros` e envia telemetria ao Application Insights.
 
 **Tech Stack:** Azure CLI 2.89.1, Azure App Service Windows F1, Node.js 22, Express 4, `mssql`, Azure SQL Basic, Application Insights, GitHub Actions e PowerShell 7.
 
 ## Global Constraints
 
-- Região Azure: `brazilsouth`.
+- Regiões Azure: `brazilsouth` para Resource Group, SQL e monitoramento; `chilecentral` para App Service.
 - Resource Group novo: `rg-biblioteca-260928`.
 - O Resource Group existente `rg-avocato-toast-cp4` não pode ser alterado nem excluído.
 - Tema: Biblioteca/Livros.
 - SQL Server: `sql-biblioteca-89733`; banco: `db-biblioteca`; usuário: `sqladmin`.
-- App Service Plan Windows F1: `plan-biblioteca-260928`.
+- App Service Plan Windows F1: `plan-biblioteca-260928`, criado com sucesso em `chilecentral`. Por orientação do professor, a política “Locais permitidos” passou a incluir essa região após as falhas por cota em Brazil South. D1 e Container Apps foram abandonados.
 - Web App: `web-biblioteca-89733`; runtime: `NODE:22LTS`.
 - Application Insights: `appi-biblioteca-260928`.
 - Log Analytics Workspace: `law-biblioteca-260928`, no mesmo Resource Group.
@@ -80,6 +80,7 @@ New-Item -ItemType Directory -Force 'work/evidencias' | Out-Null
 
 $resourceGroup = 'rg-biblioteca-260928'
 $location = 'brazilsouth'
+$appServiceLocation = 'chilecentral'
 $sqlServer = 'sql-biblioteca-89733'
 $database = 'db-biblioteca'
 $sqlUser = 'sqladmin'
@@ -123,7 +124,7 @@ az appservice plan create `
   --name $plan `
   --resource-group $resourceGroup `
   --sku F1 `
-  --location $location `
+  --location $appServiceLocation `
   --is-linux false `
   --output table
 
@@ -202,8 +203,7 @@ BEGIN
     );
 END;
 
-DELETE FROM dbo.Livros;
-DBCC CHECKIDENT ('dbo.Livros', RESEED, 0);
+TRUNCATE TABLE dbo.Livros;
 
 INSERT INTO dbo.Livros (Titulo, Autor, AnoPublicacao)
 VALUES
@@ -509,16 +509,16 @@ Run:
 git -C atividade-azure-devops push origin main
 ```
 
-Expected: GitHub Actions executa os jobs `build` e `deploy` com sucesso.
+Expected: GitHub Actions executa o job `build-and-deploy` com sucesso.
 
 - [ ] **Step 4: Verificar a implantação inicial**
 
 Run:
 
 ```powershell
-$home = Invoke-WebRequest -UseBasicParsing https://web-biblioteca-89733.azurewebsites.net/
+$homeResponse = Invoke-WebRequest -UseBasicParsing https://web-biblioteca-89733.azurewebsites.net/
 $tema = Invoke-RestMethod https://web-biblioteca-89733.azurewebsites.net/tema
-$home.StatusCode
+$homeResponse.StatusCode
 $tema | Format-Table Id,Titulo,Autor,AnoPublicacao -AutoSize
 ```
 
