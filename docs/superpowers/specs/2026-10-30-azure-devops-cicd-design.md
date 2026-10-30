@@ -15,7 +15,7 @@ Publicar automaticamente a aplicação Node.js do repositório GitHub do aluno e
 
 ## Arquitetura
 
-O código ficará em um fork público do GitHub. Uma Build Pipeline criada no Editor Clássico do Azure DevOps será vinculada ao fork e executada automaticamente a cada push na branch principal. A build configurará Node.js, instalará dependências, validará a aplicação, preparará um pacote e publicará um artifact.
+O código ficará na branch `cp03-azure-devops` do fork público do GitHub, preservando o histórico já existente na branch `main`. Uma Build Pipeline criada no Editor Clássico do Azure DevOps será vinculada ao fork e executada automaticamente a cada push nessa branch. A build configurará Node.js, instalará dependências, validará a aplicação, preparará um pacote e publicará um artifact.
 
 Uma Release Pipeline clássica consumirá o artifact da build. Seu gatilho de implantação contínua iniciará um release quando um novo artifact for publicado. O estágio de produção usará uma Service Connection baseada na assinatura Azure da conta FIAP para publicar o pacote em um Azure App Service Linux.
 
@@ -26,7 +26,7 @@ Uma Release Pipeline clássica consumirá o artifact da build. Seu gatilho de im
 3. Criar o projeto `cp03-fred-devops`.
 4. Criar a Build Pipeline pelo Editor Clássico e conectá-la ao fork GitHub.
 5. Configurar tarefas de Node.js, instalação, validação, empacotamento e publicação do artifact.
-6. Ativar o gatilho de integração contínua para a branch principal.
+6. Ativar o gatilho de integração contínua para a branch `cp03-azure-devops`.
 7. Criar Resource Group, App Service Plan Linux e App Service Node.js na assinatura ativa.
 8. Criar a Service Connection entre Azure DevOps e Azure.
 9. Criar a Release Pipeline clássica, vinculá-la ao artifact e configurar a tarefa de Azure App Service Deploy.
@@ -64,7 +64,7 @@ Não será criado Azure SQL porque o desafio avalia a página principal e a este
 
 O trabalho será considerado concluído quando:
 
-- um push na branch principal iniciar automaticamente a build;
+- um push na branch `cp03-azure-devops` iniciar automaticamente a build;
 - a build concluir e publicar o artifact;
 - um release for iniciado automaticamente a partir desse artifact;
 - o release publicar no App Service com sucesso;

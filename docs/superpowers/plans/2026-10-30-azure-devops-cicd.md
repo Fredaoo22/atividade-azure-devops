@@ -157,10 +157,10 @@ Run:
 ```powershell
 git add app/package.json app/package-lock.json app/test.js docs/superpowers
 git commit -m "test: add deployment smoke validation"
-git push -u origin main
+git push -u origin cp03-azure-devops
 ```
 
-Expected: the commit appears in the fork's `main` branch.
+Expected: the commit appears in the fork's `cp03-azure-devops` branch while the existing `main` branch remains unchanged.
 
 ---
 
@@ -297,7 +297,7 @@ Expected: email is `pf2488@fiap.com.br`, license is `Basic`, and status is not r
 
 **Interfaces:**
 - Consumes: fork `Fredaoo22/atividade-azure-devops`
-- Produces: classic build definition `cp03-build`, CI trigger on `main`, artifact `drop/app.zip`
+- Produces: classic build definition `cp03-build`, CI trigger on `cp03-azure-devops`, artifact `drop/app.zip`
 
 - [ ] **Step 1: Connect the GitHub repository**
 
@@ -307,7 +307,7 @@ Expected: the service connection reports `Verified` and can list `Fredaoo22/ativ
 
 - [ ] **Step 2: Create the classic build definition**
 
-In Pipelines → New pipeline, select `Use the classic editor`, GitHub as source, the `github-fredaoo22` connection, repository `Fredaoo22/atividade-azure-devops`, branch `main`, and `Empty job`. Name the definition `cp03-build`.
+In Pipelines → New pipeline, select `Use the classic editor`, GitHub as source, the `github-fredaoo22` connection, repository `Fredaoo22/atividade-azure-devops`, branch `cp03-azure-devops`, and `Empty job`. Name the definition `cp03-build`.
 
 Expected: the Tasks tab displays an agent job using a Microsoft-hosted Ubuntu image.
 
@@ -325,9 +325,9 @@ Expected: saving the definition succeeds with no YAML file created.
 
 - [ ] **Step 4: Enable continuous integration**
 
-In the Triggers tab, enable Continuous integration and include the branch filter `main`.
+In the Triggers tab, enable Continuous integration and include the branch filter `cp03-azure-devops`.
 
-Expected: the definition shows an enabled CI trigger for `main`.
+Expected: the definition shows an enabled CI trigger for `cp03-azure-devops`.
 
 - [ ] **Step 5: Queue and verify the initial build**
 
@@ -373,7 +373,7 @@ Expected: Save succeeds and task validation reports no missing required input.
 
 - [ ] **Step 4: Enable continuous deployment**
 
-Open the artifact's lightning-bolt trigger and enable Continuous deployment trigger for the `main` branch build.
+Open the artifact's lightning-bolt trigger and enable Continuous deployment trigger for the `cp03-azure-devops` branch build.
 
 Expected: a new successful `cp03-build` artifact automatically creates a release.
 
@@ -455,7 +455,7 @@ Run:
 ```powershell
 git add app/index.js
 git commit -m "feat: confirm Azure DevOps deployment"
-git push origin main
+git push origin cp03-azure-devops
 ```
 
 Expected: no manual build or release is queued; GitHub push triggers both automatically.
@@ -523,7 +523,7 @@ Run:
 ```powershell
 git add ENTREGA.md
 git commit -m "docs: add CP03 delivery links"
-git push origin main
+git push origin cp03-azure-devops
 ```
 
 Expected: the documentation push also triggers a successful build and release, confirming repeatability.
