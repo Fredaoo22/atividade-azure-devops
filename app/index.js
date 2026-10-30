@@ -75,6 +75,7 @@ app.get('/', (req, res) => {
                 color: #ffffff;
                 font-size: 1.25em;
                 font-weight: 700;
+                letter-spacing: 0.01em;
             }
             .btn {
                 display: inline-block;
