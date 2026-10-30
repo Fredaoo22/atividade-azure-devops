@@ -4,7 +4,8 @@
   "description": "App template for Azure CI/CD and App Insights",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "node test.js"
   },
   "dependencies": {
     "express": "^4.18.2",

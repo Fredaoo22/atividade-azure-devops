@@ -6,7 +6,7 @@ Publicar automaticamente a aplicação Node.js do repositório GitHub do aluno e
 
 ## Identidades e nomes
 
-- GitHub: conta `fredsousa675`.
+- GitHub: conta `Fredaoo22`.
 - Azure e Azure DevOps: conta `mr565725@fiap.com.br`.
 - Repositório de origem: `karlosmiguell/atividade-azure-devops`.
 - Nome preferencial do projeto Azure DevOps: `cp03-fred-devops`.
@@ -21,7 +21,7 @@ Uma Release Pipeline clássica consumirá o artifact da build. Seu gatilho de im
 
 ## Fluxo de entrega
 
-1. Criar o fork na conta `fredsousa675` e torná-lo a origem do clone local.
+1. Criar o fork na conta `Fredaoo22` e torná-lo a origem do clone local.
 2. Criar ou selecionar uma organização Azure DevOps pertencente à conta `mr565725@fiap.com.br`.
 3. Criar o projeto `cp03-fred-devops`.
 4. Criar a Build Pipeline pelo Editor Clássico e conectá-la ao fork GitHub.

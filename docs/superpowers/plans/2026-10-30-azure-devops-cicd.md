@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- GitHub usa a conta `fredsousa675`.
+- GitHub usa a conta `Fredaoo22`.
 - Azure e Azure DevOps usam `mr565725@fiap.com.br`.
 - O projeto Azure DevOps se chama `cp03-fred-devops`.
 - Build e Release devem usar os editores clássicos, não YAML.
@@ -29,7 +29,7 @@
 
 **Interfaces:**
 - Consumes: repository `karlosmiguell/atividade-azure-devops`
-- Produces: fork `https://github.com/fredsousa675/atividade-azure-devops` configured as `origin`
+- Produces: fork `https://github.com/Fredaoo22/atividade-azure-devops` configured as `origin`
 
 - [ ] **Step 1: Install GitHub CLI if absent**
 
@@ -43,7 +43,7 @@ if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
 
 Expected: `gh --version` reports an installed version.
 
-- [ ] **Step 2: Authenticate GitHub as fredsousa675**
+- [ ] **Step 2: Authenticate GitHub as Fredaoo22**
 
 Run:
 
@@ -52,23 +52,23 @@ gh auth login --hostname github.com --git-protocol https --web
 gh api user --jq .login
 ```
 
-Expected: browser/device login is completed by the user and the final command prints `fredsousa675`.
+Expected: browser/device login is completed by the user and the final command prints `Fredaoo22`.
 
 - [ ] **Step 3: Create or reuse the fork**
 
 Run:
 
 ```powershell
-$forkExists = gh repo view fredsousa675/atividade-azure-devops --json nameWithOwner 2>$null
+$forkExists = gh repo view Fredaoo22/atividade-azure-devops --json nameWithOwner 2>$null
 if (-not $forkExists) {
   gh repo fork karlosmiguell/atividade-azure-devops --clone=false --remote=false
 }
 git remote rename origin upstream
-git remote add origin https://github.com/fredsousa675/atividade-azure-devops.git
+git remote add origin https://github.com/Fredaoo22/atividade-azure-devops.git
 git remote -v
 ```
 
-Expected: `origin` points to `fredsousa675/atividade-azure-devops` and `upstream` points to `karlosmiguell/atividade-azure-devops`.
+Expected: `origin` points to `Fredaoo22/atividade-azure-devops` and `upstream` points to `karlosmiguell/atividade-azure-devops`.
 
 ---
 
@@ -296,18 +296,18 @@ Expected: email is `pf2488@fiap.com.br`, license is `Basic`, and status is not r
 - No repository files; classic definition stored in Azure DevOps
 
 **Interfaces:**
-- Consumes: fork `fredsousa675/atividade-azure-devops`
+- Consumes: fork `Fredaoo22/atividade-azure-devops`
 - Produces: classic build definition `cp03-build`, CI trigger on `main`, artifact `drop/app.zip`
 
 - [ ] **Step 1: Connect the GitHub repository**
 
-In Azure DevOps, open Project Settings → Service connections → New service connection → GitHub, choose GitHub OAuth, authorize the logged-in `fredsousa675` account, name the connection `github-fredsousa675`, and grant it to the `cp03-fred-devops` project.
+In Azure DevOps, open Project Settings → Service connections → New service connection → GitHub, choose GitHub OAuth, authorize the logged-in `Fredaoo22` account, name the connection `github-fredaoo22`, and grant it to the `cp03-fred-devops` project.
 
-Expected: the service connection reports `Verified` and can list `fredsousa675/atividade-azure-devops`.
+Expected: the service connection reports `Verified` and can list `Fredaoo22/atividade-azure-devops`.
 
 - [ ] **Step 2: Create the classic build definition**
 
-In Pipelines → New pipeline, select `Use the classic editor`, GitHub as source, the `github-fredsousa675` connection, repository `fredsousa675/atividade-azure-devops`, branch `main`, and `Empty job`. Name the definition `cp03-build`.
+In Pipelines → New pipeline, select `Use the classic editor`, GitHub as source, the `github-fredaoo22` connection, repository `Fredaoo22/atividade-azure-devops`, branch `main`, and `Empty job`. Name the definition `cp03-build`.
 
 Expected: the Tasks tab displays an agent job using a Microsoft-hosted Ubuntu image.
 
@@ -495,7 +495,7 @@ Expected: no exception and the required message is present.
 
 Create `ENTREGA.md` containing the resolved URLs for:
 
-- `https://github.com/fredsousa675/atividade-azure-devops`
+- `https://github.com/Fredaoo22/atividade-azure-devops`
 - Azure DevOps project;
 - `cp03-build` pipeline;
 - Azure App Service resource;
