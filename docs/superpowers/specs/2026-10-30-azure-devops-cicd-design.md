@@ -36,7 +36,7 @@ Uma Release Pipeline clássica consumirá o artifact da build. Seu gatilho de im
 
 ## Build clássico
 
-A build executará em agente hospedado pelo Azure DevOps e terá, no mínimo:
+A build executará no agente self-hosted `cp03-local-agent`, registrado no pool `Default` porque a nova organização ainda não possui concessão de job paralelo hospedado, e terá, no mínimo:
 
 - seleção de uma versão Node.js compatível com a aplicação;
 - `npm install` dentro de `app`;

@@ -6,7 +6,7 @@
 
 **Architecture:** O GitHub será a fonte da Build Pipeline clássica, que produzirá o artifact `drop/app.zip`. Uma Release Pipeline clássica consumirá esse artifact e fará deploy no App Service Linux por uma Service Connection Azure Resource Manager; CI e CD serão disparados automaticamente.
 
-**Tech Stack:** GitHub, Git, Node.js 22 LTS, Express, Azure CLI, Azure DevOps Classic Build, Azure DevOps Classic Release, Azure App Service Linux.
+**Tech Stack:** GitHub, Git, Node.js 24 LTS, Express, Azure CLI, Azure DevOps Classic Build, Azure DevOps Classic Release, Azure App Service Linux.
 
 ## Global Constraints
 
@@ -309,13 +309,13 @@ Expected: the service connection reports `Verified` and can list `Fredaoo22/ativ
 
 In Pipelines → New pipeline, select `Use the classic editor`, GitHub as source, the `github-fredaoo22` connection, repository `Fredaoo22/atividade-azure-devops`, branch `cp03-azure-devops`, and `Empty job`. Name the definition `cp03-build`.
 
-Expected: the Tasks tab displays an agent job using a Microsoft-hosted Ubuntu image.
+Expected: the Tasks tab displays an agent job using the self-hosted `cp03-local-agent` from the `Default` pool, because the new organization does not yet have a Microsoft-hosted parallel job grant.
 
 - [ ] **Step 3: Configure the build tasks**
 
 Add these tasks in order:
 
-1. `Node.js tool installer`: version spec `22.x`.
+1. `Node.js tool installer`: version spec `24.x`.
 2. `npm`: command `install`, working folder `$(Build.SourcesDirectory)/app`.
 3. `npm`: custom command `test`, working folder `$(Build.SourcesDirectory)/app`.
 4. `Archive files`: root folder `$(Build.SourcesDirectory)/app`, exclude root folder, archive type `zip`, archive file `$(Build.ArtifactStagingDirectory)/app.zip`, replace existing archive.

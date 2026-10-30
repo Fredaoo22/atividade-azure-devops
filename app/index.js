@@ -71,6 +71,11 @@ app.get('/', (req, res) => {
                 line-height: 1.5;
                 color: #cccccc;
             }
+            .success-message {
+                color: #ffffff;
+                font-size: 1.25em;
+                font-weight: 700;
+            }
             .btn {
                 display: inline-block;
                 margin-top: 20px;
@@ -100,7 +105,7 @@ app.get('/', (req, res) => {
         <div class="container">
             <div class="badge">Deploy Status: Sucesso! ✅</div>
             <h1>Atividade DevOps & Cloud</h1>
-            <p>Parabéns! Sua aplicação Node.js foi implementada com sucesso no Azure Web App através da sua esteira CI/CD.</p>
+            <p class="success-message">Deploy realizado com sucesso pelo Azure DevOps</p>
             <p>O App Insights já está monitorando sua aplicação.</p>
             <a href="/tema" class="btn">🚀 Ver Dados do Banco</a>
         </div>
